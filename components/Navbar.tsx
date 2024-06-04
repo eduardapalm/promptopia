@@ -28,6 +28,10 @@ const Navbar = () => {
   }, []);
 
   const handleSignOut = () => setIsUserLoggedIn(false);
+  const mobileSignOut = () => {
+    setIsUserLoggedIn(false);
+    setToggleDropdown(false);
+  };
   const handleDropdown = () => setToggleDropdown((prev) => !prev);
   const handleDropdownClose = () => setToggleDropdown(false);
 
@@ -107,6 +111,20 @@ const Navbar = () => {
                 >
                   My Profile
                 </Link>
+                <Link
+                  href="/create-prompt"
+                  className="dropdown_link"
+                  onClick={handleDropdownClose}
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  type="button"
+                  onClick={mobileSignOut}
+                  className="mt-5 w-full black_btn"
+                >
+                  Sign Out
+                </button>
               </div>
             )}
           </div>
