@@ -2,12 +2,8 @@ import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
 import { NextApiRequest, NextApiResponse } from "next/types";
 
-export const POST = async (req: Request, res: NextApiResponse) => {
+export const POST = async (req: Request) => {
   const { prompt, userId, tag } = await req.json();
-
-  console.log("Prompt: ", prompt);
-  console.log("userId: ", userId);
-  console.log("tag: ", tag);
 
   try {
     if (!prompt || !userId || !tag) {
