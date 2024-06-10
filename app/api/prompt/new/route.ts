@@ -1,6 +1,5 @@
 import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
-import { NextApiRequest, NextApiResponse } from "next/types";
 
 export const POST = async (req: Request) => {
   const { prompt, userId, tag } = await req.json();
