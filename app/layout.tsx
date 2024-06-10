@@ -1,4 +1,5 @@
 import Navbar from "@components/Navbar";
+import Provider from "@components/Provider";
 import "@styles/globals.css";
 
 import { Children } from "react";
@@ -12,13 +13,15 @@ const RootLayout = (props: IRootProps) => {
   return (
     <html lang="en">
       <body>
-        <div className="main">
-          <div className="gradient" />
-        </div>
-        <div className="app">
-          <Navbar />
-          {props.children}
-        </div>
+        <Provider>
+          <div className="main">
+            <div className="gradient" />
+          </div>
+          <div className="app">
+            <Navbar />
+            {props.children}
+          </div>
+        </Provider>
       </body>
     </html>
   );
