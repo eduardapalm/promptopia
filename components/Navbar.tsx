@@ -7,30 +7,31 @@ import {
   getProviders,
   LiteralUnion,
   signIn,
+  signOut,
+  useSession,
 } from "next-auth/react";
 import { BuiltInProviderType } from "next-auth/providers/index";
 
 const Navbar = () => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const { data: session } = useSession();
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
   > | null>(null); // [GoogleProvider, FacebookProvider, TwitterProvider, GithubProvider]
 
-  useEffect(() => {
-    const handleSetProviders = async () => {
-      const response = await getProviders();
-      setProviders(response);
-    };
+  const handleSetProviders = async () => {
+    const response = await getProviders();
+    setProviders(response);
+  };
 
+  useEffect(() => {
     handleSetProviders();
   }, []);
 
-  const handleSignOut = () => setIsUserLoggedIn(false);
-  const mobileSignOut = () => {
-    setIsUserLoggedIn(false);
-    setToggleDropdown(false);
+  const handleSignOut = (mobile?: boolean) => {
+    if (mobile) setToggleDropdown(false);
+    signOut();
   };
   const handleDropdown = () => setToggleDropdown((prev) => !prev);
   const handleDropdownClose = () => setToggleDropdown(false);
@@ -49,7 +50,7 @@ const Navbar = () => {
       </Link>
 
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Post
@@ -57,7 +58,7 @@ const Navbar = () => {
 
             <button
               type="button"
-              onClick={handleSignOut}
+              onClick={() => handleSignOut()}
               className="outline_btn"
             >
               Sign Out
@@ -65,7 +66,7 @@ const Navbar = () => {
 
             <Link href="/profile">
               <Image
-                src="/assets/images/profile.jpeg"
+                src={session?.user.image || "/assets/images/logo.svg"}
                 alt="profile"
                 width={37}
                 height={37}
@@ -91,10 +92,10 @@ const Navbar = () => {
       </div>
 
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/profile.jpeg"
+              src={session?.user.image || "/assets/images/logo.svg"}
               alt="profile"
               width={37}
               height={37}
@@ -120,7 +121,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   type="button"
-                  onClick={mobileSignOut}
+                  onClick={() => handleSignOut(true)}
                   className="mt-5 w-full black_btn"
                 >
                   Sign Out
