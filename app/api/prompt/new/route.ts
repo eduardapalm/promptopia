@@ -1,5 +1,5 @@
 import Prompt from "@models/prompt";
-import INewPrompt from "../../../../types/responses/INewPrompt";
+import INewPrompt from "../../../../interfaces/INewPrompt";
 import { connectToDB } from "@utils/database";
 
 export const POST = async (req: Request) => {
@@ -14,7 +14,7 @@ export const POST = async (req: Request) => {
     }
 
     await connectToDB();
-    const formatedTag = tag.toString().toLowerCase();
+    const formatedTag = tag.toLowerCase();
 
     const newPrompt = new Prompt({
       prompt,

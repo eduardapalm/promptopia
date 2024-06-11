@@ -1,5 +1,5 @@
 import Link from "next/link";
-import IFormProps from "../types/props/IFormProps";
+import IFormProps from "../interfaces/props/IFormProps";
 
 const Form = (props: IFormProps) => {
   const { type, post, setPost, submitting, handleSubmit } = props;

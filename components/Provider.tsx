@@ -1,6 +1,6 @@
 "use client";
 
-import IProviderProps from "../types/props/IProviderProps";
+import IProviderProps from "../interfaces/props/IProviderProps";
 import { SessionProvider } from "next-auth/react";
 
 const Provider = (props: IProviderProps) => {
