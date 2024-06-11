@@ -20,17 +20,13 @@ const CreatePrompt = () => {
     setSubmitting(true);
 
     try {
-      const bodytosend = JSON.stringify({
-        prompt: post.prompt,
-        userId: session?.user.id,
-        tag: post.tag,
-      });
-
-      console.log("BODY:", bodytosend);
-
       const response = await fetch("/api/prompt/new", {
         method: "POST",
-        body: bodytosend,
+        body: JSON.stringify({
+          prompt: post.prompt,
+          userId: session?.user.id,
+          tag: post.tag,
+        }),
       });
 
       if (response.ok) router.push("/");
