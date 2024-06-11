@@ -1,8 +1,9 @@
 import Prompt from "@models/prompt";
+import INewPrompt from "../../../../types/responses/INewPrompt";
 import { connectToDB } from "@utils/database";
 
 export const POST = async (req: Request) => {
-  const { prompt, userId, tag } = await req.json();
+  const { prompt, userId, tag }: INewPrompt = await req.json();
 
   try {
     if (!prompt || !userId || !tag) {
