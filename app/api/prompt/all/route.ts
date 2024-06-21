@@ -8,8 +8,6 @@ export const GET = async (req: Request) => {
 
     const prompts: IPrompt[] = await Prompt.find().populate("createdBy");
 
-    console.log(prompts);
-
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
     return new Response(
