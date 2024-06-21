@@ -40,12 +40,9 @@ const PromptCardList = (props: IPromptCardList) => {
 
     if (hasConfirmed) {
       try {
-        const response = await fetch(
-          `/api/prsdsdompt/${prompt._id.toString()}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`/api/prompt/${prompt._id.toString()}`, {
+          method: "DELETE",
+        });
 
         if (!response.ok) {
           throw new Error(`Failed to Delete Prompt. Error: ${response.text()}`);
