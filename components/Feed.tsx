@@ -15,7 +15,6 @@ const Feed = () => {
   const fetchPrompts = async () => {
     const res = await fetch("/api/prompt/all");
     const data = await res.json();
-    console.log(data);
 
     setPromptList(data);
   };
