@@ -14,12 +14,11 @@ export const POST = async (req: Request) => {
     }
 
     await connectToDB();
-    const formatedTag = tag.toLowerCase();
 
     const newPrompt = new Prompt({
       prompt,
       createdBy: userId,
-      tag: formatedTag.includes("#") ? formatedTag : `#${formatedTag}`,
+      tag: `#${tag.replace("#", "")}`,
     });
 
     await newPrompt.save();
