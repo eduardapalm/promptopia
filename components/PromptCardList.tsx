@@ -16,12 +16,16 @@ const PromptCardList = (props: IPromptCardList) => {
         `/api/prompt/all/tag?tag=${encodeURIComponent(selectedTag)}`
       );
 
-      if (response.ok) {
-        const data = await response.json();
-        setPromptList(data);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to Fetch Prompts by Tag. Error: ${response.text()}`
+        );
       }
+
+      const data = await response.json();
+      setPromptList(data);
     } catch (error) {
-      console.log(error);
+      throw new Error(`Failed to Fetch Prompts by Tag. Error: ${error}`);
     }
   };
 
@@ -36,18 +40,23 @@ const PromptCardList = (props: IPromptCardList) => {
 
     if (hasConfirmed) {
       try {
-        const response = await fetch(`/api/prompt/${prompt._id.toString()}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `/api/prsdsdompt/${prompt._id.toString()}`,
+          {
+            method: "DELETE",
+          }
+        );
 
-        if (response.ok) {
-          const currentList = promptList.filter(
-            (item) => item._id !== prompt._id
-          );
-          setPromptList(currentList);
+        if (!response.ok) {
+          throw new Error(`Failed to Delete Prompt. Error: ${response.text()}`);
         }
+
+        const currentList = promptList.filter(
+          (item) => item._id !== prompt._id
+        );
+        setPromptList(currentList);
       } catch (error) {
-        console.log(error);
+        throw new Error(`Failed to Delete Prompt. Error: ${error}`);
       }
     }
   };

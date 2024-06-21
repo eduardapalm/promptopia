@@ -44,7 +44,7 @@ const handler = NextAuth({
 
         return true;
       } catch (err) {
-        console.log("Error: ", err);
+        throw new Error(`Error signing in: ${err}`);
         return false;
       }
     },

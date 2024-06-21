@@ -20,7 +20,6 @@ export const GET = async (req: Request) => {
 
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
-    console.error(error);
     return new Response(
       JSON.stringify({
         error: `Failed to Fetch Prompts by Tag. Server Error: ${error}`,

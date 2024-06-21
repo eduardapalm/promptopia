@@ -25,7 +25,6 @@ export const POST = async (req: Request) => {
 
     return new Response(JSON.stringify(newPrompt), { status: 201 });
   } catch (error) {
-    console.log(error);
     return new Response(
       JSON.stringify({
         error: `Failed to Create a new Prompt. Server Error: ${error}`,

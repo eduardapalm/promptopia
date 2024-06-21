@@ -29,9 +29,13 @@ const CreatePrompt = () => {
         }),
       });
 
-      if (response.ok) router.push("/");
+      if (!response.ok) {
+        throw new Error(`Failed to Create Prompt. Error: ${response.text()}`);
+      }
+
+      router.push("/");
     } catch (error) {
-      console.log(error);
+      throw new Error(`Failed to Create Prompt. Error: ${error}`);
     } finally {
       setSubmitting(false);
     }
